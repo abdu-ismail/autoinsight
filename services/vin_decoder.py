@@ -1,7 +1,7 @@
 import requests
 
 base_url = "https://vpic.nhtsa.dot.gov/api/"
-
+test_vin = "1FMHK8D86BGA47454" # 2011 Ford Explorer XLT
 def decode_vin(vin):
     url = f"{base_url}/vehicles/DecodeVinValuesExtended/{vin}"
 
@@ -16,14 +16,13 @@ def decode_vin(vin):
     else:
         print(f"Failed to retrieve data \nResponse Code: {response.status_code}")
 
-placeholder_vin = "1FMHK8D86BGA47454" # 2011 Ford Explorer XLT
+
 
 def get_vehicle_info(vin):
     vin_data = decode_vin(vin)
 
     relevant_data = {}
 
-    # print(vin_data)
     for i in vin_data:
         relevant_data["Make"] = i["Make"]
         relevant_data["Model"] = i["Model"]
@@ -37,6 +36,5 @@ def get_vehicle_info(vin):
 
 def beautify_info(info):
     vehicleString = f"{info["Year"]} {info["Make"]} {info["Model"]}"
-    
+
     return vehicleString
-print(beautify_info(get_vehicle_info(placeholder_vin)))
